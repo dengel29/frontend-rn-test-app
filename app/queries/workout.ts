@@ -20,6 +20,7 @@ const blockFragment = gql`
         swappedForBlockExerciseId
         exercise {
           name
+          info
         }
       }
     }

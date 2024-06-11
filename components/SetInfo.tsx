@@ -1,5 +1,6 @@
 import { ThemedView } from "./ThemedView";
 import { ThemedText } from "./ThemedText";
+import { Image, ImageBackground } from "react-native";
 import { Block, BlockExercise } from "@/app/types";
 
 const styles = {
@@ -26,13 +27,22 @@ export const SetInfo = ({
     <>
       <ThemedView
         style={{
-          width: 80,
-          height: 100,
-          borderWidth: 1,
+          width: 90,
+          height: 110,
           borderRadius: 25,
           alignSelf: "flex-end",
+          overflow: "hidden",
         }}
-      ></ThemedView>
+      >
+        <ImageBackground
+          style={{
+            width: 90,
+            height: 110,
+            borderRadius: 25,
+          }}
+          source={{ uri: be.exercise.info }}
+        ></ImageBackground>
+      </ThemedView>
       <ThemedView style={{ width: "50%" }}>
         <ThemedText
           style={[

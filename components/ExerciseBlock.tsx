@@ -81,21 +81,24 @@ export function ExerciseBlock(props: Props) {
       ? styles.connectorContainer
       : styles.nonConnectorContainer;
 
+  const connectorColor = isWarmup
+    ? styles.warmUpConnectorColor
+    : styles.connectorColor;
+
   return (
     <ThemedView style={[bgColor]}>
-      <ThemedView style={[connectorStyle]}>
-        {len && (
+      <ThemedView style={{ ...connectorStyle, ...connectorColor }}>
+        {len ? (
           <ThemedText
             style={[
               {
                 marginStart: 10,
-                marginBottom: 5,
-                marginTop: 20,
                 textTransform: "uppercase",
                 color: "#3D4156",
                 opacity: 0.5,
+                marginBottom: 5,
+                marginTop: 20,
                 borderLeftWidth: 3,
-                borderColor: "black",
               },
               styles.workSans[600],
             ]}
@@ -103,6 +106,18 @@ export function ExerciseBlock(props: Props) {
             {" "}
             {len} • {block.setCount} Rounds
           </ThemedText>
+        ) : (
+          <ThemedView
+            style={[
+              {
+                marginStart: 10,
+                opacity: 0.5,
+                marginBottom: 5,
+                marginTop: 20,
+                borderLeftWidth: 3,
+              },
+            ]}
+          ></ThemedView>
         )}
       </ThemedView>
       <ThemedView style={[styles.blockContainer, exerciseBgColor, blockStroke]}>
@@ -186,13 +201,20 @@ const styles = {
   connectorContainer: {
     marginStart: 45,
     marginBottom: -10,
-    marginTop: -10,
+    marginTop: -8,
     borderLeftWidth: 2,
-    borderLeftColor: "#E9E9E9",
     backgroundColor: "transparent",
   },
   nonConnectorContainer: {
     marginStart: 45,
+    marginBottom: 10,
+    marginTop: 10,
     backgroundColor: "transparent",
+  },
+  warmUpConnectorColor: {
+    borderLeftColor: "white",
+  },
+  connectorColor: {
+    borderLeftColor: "#E9E9E9",
   },
 };
