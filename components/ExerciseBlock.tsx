@@ -42,6 +42,11 @@ export function ExerciseBlock(props: Props) {
     });
     setShowModal(true);
   };
+
+  const handleShuffle = (be: BlockExercise) => {
+    shuffle(be);
+  };
+
   const isWarmup = block.section === "warmup";
 
   const setTypeText = (exerciseCount: number): string | null => {
