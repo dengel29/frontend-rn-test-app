@@ -2,6 +2,25 @@
 
 For full instructions on what we'd like you to do please visit our [official developer test page](https://www.notion.so/nuliapp/Nuli-Mid-Level-Mobile-Developer-Test-83f53a4746824e4a8f924b8b9fc13d69#ac50bed4e72645a2a5b066ff67bb7a93).
 
+## ❗️Please do this before running❗️
+Please change the contents of `apollo.ts` to your current local address. The current contents are
+
+```ts
+const client = new ApolloClient({
+  uri: "http://192.168.33.123:3000/graphql",
+  cache: new InMemoryCache(),
+});
+```
+
+Change the uri to the your local address which can be obtained by running (if on Mac)
+```bash
+ifconfig | grep "inet " | grep -v 127.0.0.1 | cut -d\   -f2
+```
+
+## For running the back-end 
+
+In order to get data to the app, the back-end must be running and the database populated. Instructions for doing so can be found [here](https://github.com/dengel29/backend-nest-test-app/)
+
 ## Get started
 
 1. Install dependencies
