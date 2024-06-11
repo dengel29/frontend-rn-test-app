@@ -2,6 +2,9 @@ import { ThemedView } from "./ThemedView";
 import { ThemedText } from "./ThemedText";
 import Flex from "./Flex";
 import { Block, BlockExercise } from "@/app/types";
+import { Portal } from "@gorhom/portal";
+import SimplePopover from "./SimplePopover";
+import { useState } from "react";
 import { ButtonGroup } from "./ButtonGroup";
 import { SetInfo } from "./SetInfo";
 
@@ -12,6 +15,33 @@ type Props = {
 
 export function ExerciseBlock(props: Props) {
   const { block, shuffle } = props;
+
+  const [showModal, setShowModal] = useState(false);
+  const [config, setConfig] = useState({
+    position: "",
+    targetLayout: {
+      x: 0,
+      y: 0,
+      width: 0,
+      height: 0,
+    },
+  });
+
+  const handlePressQuickActions = (event) => {
+    const x = event.nativeEvent.pageX;
+    const y = event.nativeEvent.pageY;
+    console.log(y);
+    setConfig({
+      position: "bottom",
+      targetLayout: {
+        x,
+        y,
+        width: 10,
+        height: 20,
+      },
+    });
+    setShowModal(true);
+  };
   const isWarmup = block.section === "warmup";
 
   const setTypeText = (exerciseCount: number): string | null => {
@@ -72,6 +102,11 @@ export function ExerciseBlock(props: Props) {
             );
           })}
       </ThemedView>
+      {showModal && (
+        <Portal>
+          <SimplePopover {...config} onPress={() => setShowModal(false)} />
+        </Portal>
+      )}
     </ThemedView>
   );
 }
