@@ -70,7 +70,36 @@ export function ExerciseBlock(props: Props) {
   const exerciseBgColor = isWarmup
     ? styles.warmUpExerciseBg
     : styles.defaultExerciseBg;
+
+  const connectorStyle =
+    block.order > 0 && block.order !== 2
+      ? styles.connectorContainer
+      : styles.nonConnectorContainer;
+
+  return (
     <ThemedView style={[bgColor]}>
+      <ThemedView style={[connectorStyle]}>
+        {len && (
+          <ThemedText
+            style={[
+              {
+                marginStart: 10,
+                marginBottom: 5,
+                marginTop: 20,
+                textTransform: "uppercase",
+                color: "#3D4156",
+                opacity: 0.5,
+                borderLeftWidth: 3,
+                borderColor: "black",
+              },
+              styles.workSans[600],
+            ]}
+          >
+            {" "}
+            {len} • {block.setCount} Rounds
+          </ThemedText>
+        )}
+      </ThemedView>
       <ThemedView style={[styles.blockContainer, exerciseBgColor, blockStroke]}>
         {[...block.blockExercises]
           .sort((a, b) => a.order - b.order)
@@ -149,3 +178,16 @@ const styles = {
     600: { fontFamily: "OpenSans_600SemiBold" },
     400: { fontFamily: "OpenSans_400Regular" },
   },
+  connectorContainer: {
+    marginStart: 45,
+    marginBottom: -10,
+    marginTop: -10,
+    borderLeftWidth: 2,
+    borderLeftColor: "#E9E9E9",
+    backgroundColor: "transparent",
+  },
+  nonConnectorContainer: {
+    marginStart: 45,
+    backgroundColor: "transparent",
+  },
+};
