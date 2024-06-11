@@ -112,7 +112,6 @@ export function ExerciseBlock(props: Props) {
               {
                 marginStart: 10,
                 opacity: 0.5,
-                marginBottom: 5,
                 marginTop: 20,
                 borderLeftWidth: 3,
               },
@@ -207,7 +206,7 @@ const styles = {
   },
   nonConnectorContainer: {
     marginStart: 45,
-    marginBottom: 10,
+    // marginBottom: 10,
     marginTop: 10,
     backgroundColor: "transparent",
   },
