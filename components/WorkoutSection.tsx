@@ -3,7 +3,10 @@ import { StyleSheet, Switch, View } from "react-native";
 import { ThemedText } from "./ThemedText";
 import { ThemedView } from "./ThemedView";
 import { ExerciseBlock } from "./ExerciseBlock";
+import { Collapsible } from "./Collapsible";
 import Flex from "./Flex";
+
+import { useState } from "react";
 
 type Props = {
   sectionName: "Warm-Up" | "Workout";
@@ -65,3 +68,61 @@ const InfoHeader = ({
     </View>
   );
 };
+
+type WorkoutSectionProps = Omit<
+  Props,
+  "exerciseCount" | "toggleSwitch" | "isEnabled"
+>;
+
+export function WorkoutSection(props: WorkoutSectionProps) {
+  const { sectionName, collapsible, blocks, duration, shuffle } = props;
+  const isWarmup = sectionName === "Warm-Up";
+  const exerciseCount = blocks.reduce(
+    (count, current) => count + current.blockExercises.length,
+    0
+  );
+
+  const [isEnabled, setIsEnabled] = useState(true);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+
+  const bgColor = isWarmup ? styles.warmUpBg : styles.defaultBg;
+  return (
+    <ThemedView style={[styles.sectionContainer, bgColor]}>
+      <InfoHeader
+        collapsible={collapsible}
+        sectionName={sectionName}
+        duration={duration}
+        exerciseCount={exerciseCount}
+        toggleSwitch={toggleSwitch}
+        isEnabled={isEnabled}
+      />
+      <Collapsible isOpen={isEnabled}>
+        {blocks.map((block) => {
+          return (
+            <ExerciseBlock
+              key={block.id}
+              block={block}
+              shuffle={shuffle}
+            ></ExerciseBlock>
+          );
+        })}
+      </Collapsible>
+    </ThemedView>
+  );
+}
+
+const styles = StyleSheet.create({
+  sectionContainer: {
+    marginHorizontal: 10,
+    marginVertical: 10,
+    borderRadius: 30,
+    paddingBottom: 5,
+    overflow: "hidden",
+  },
+  warmUpBg: {
+    backgroundColor: "rgba(247, 235, 250, 1)",
+  },
+  defaultBg: {
+    backgroundColor: "white",
+  },
+});
